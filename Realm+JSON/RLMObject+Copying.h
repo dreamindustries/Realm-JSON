@@ -14,4 +14,6 @@
 - (instancetype)deepCopy;
 - (void)mergePropertiesFromObject:(id)object;
 
+- (BOOL)isAnArrayProperty:(RLMProperty *)property;
+
 @end

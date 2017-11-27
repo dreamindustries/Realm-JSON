@@ -29,7 +29,7 @@
 - (void)mergePropertiesFromObject:(id)object {
     for (RLMProperty *property in self.objectSchema.properties) {
         // assume array
-        if (property.type == RLMPropertyTypeLinkingObjects) {
+        if ([self isAnArrayProperty:property]) {
             RLMArray *thisArray = [self valueForKeyPath:property.name];
             RLMArray *thatArray = [object valueForKeyPath:property.name];
             [thisArray addObjects:thatArray];
@@ -47,7 +47,7 @@
     
     for (RLMProperty *property in self.objectSchema.properties) {
 
-        if (property.type == RLMPropertyTypeLinkingObjects) {
+        if ([self isAnArrayProperty:property]) {
             RLMArray *thisArray = [self valueForKeyPath:property.name];
             RLMArray *newArray = [object valueForKeyPath:property.name];
             
@@ -69,6 +69,10 @@
     return object;
 }
 
-
+- (BOOL)isAnArrayProperty:(RLMProperty *)property
+{
+    return (property.type == RLMPropertyTypeLinkingObjects
+            || (property.type == RLMPropertyTypeObject && [[self valueForKeyPath:property.name] isKindOfClass:[RLMArray class]]));
+}
 
 @end
