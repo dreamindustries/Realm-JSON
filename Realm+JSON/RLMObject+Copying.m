@@ -71,8 +71,7 @@
 
 - (BOOL)isAnArrayProperty:(RLMProperty *)property
 {
-    return (property.type == RLMPropertyTypeLinkingObjects
-            || (property.type == RLMPropertyTypeObject && [[self valueForKeyPath:property.name] isKindOfClass:[RLMArray class]]));
+    return (property.type == RLMPropertyTypeObject && [[self valueForKeyPath:property.name] isKindOfClass:[RLMArray class]]);
 }
 
 @end
