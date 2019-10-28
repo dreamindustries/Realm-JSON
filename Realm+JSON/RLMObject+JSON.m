@@ -206,7 +206,10 @@ static NSInteger const kCreateBatchSize = 100;
                         
                         for (id item in values) {
                             if ([item isKindOfClass:[NSDictionary class]]) {
-                                [array addObject:[elementClass mc_createObjectFromJSONDictionary:item inRealm:realm]];
+                                id obj = [[elementClass alloc] initWithValue:[elementClass mc_createObjectFromJSONDictionary:item inRealm:realm]];
+                                if (obj) {
+                                    [array addObject:obj];
+                                }
                             } else {
                                 id primaryId = [self primaryId:item forPropertyClass:elementClass];
                                 id object = [elementClass objectInRealm:realm forPrimaryKey:primaryId];
