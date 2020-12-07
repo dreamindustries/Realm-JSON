@@ -197,7 +197,7 @@ static NSInteger const kCreateBatchSize = 100;
 			else if ([propertyClass isSubclassOfClass:[RLMArray class]]) {
 				RLMProperty *property = [self mc_propertyForPropertyKey:objectKeyPath];
                 Class elementClass = property.objectClassName ? [RLMSchema classForString: property.objectClassName] : nil;
-                if ([value isKindOfClass:[NSArray class]]) {
+                if (elementClass && [value isKindOfClass:[NSArray class]]) {
                     NSArray *values = (NSArray *)value;
                     
                     if (values.count) {
